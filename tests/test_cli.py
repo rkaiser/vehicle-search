@@ -1,8 +1,12 @@
-from vehicle_search.cli import build_parser
+from typer.testing import CliRunner
+
+from vehicle_search.cli import app
+
+runner = CliRunner()
 
 
-def test_parser_accepts_name() -> None:
-    parser = build_parser()
-    args = parser.parse_args(["Reid"])
+def test_main():
+    result = runner.invoke(app, ["Reid"])
 
-    assert args.name == "Reid"
+    assert result.exit_code == 0
+    assert result.output == "Hello Reid\n"

@@ -12,25 +12,17 @@ authors = [
   { name = "Your Team" }
 ]
 dependencies = [
+    "requests>=2.34.2",
     "typer>=0.26.7",
 ]
 
 [project.scripts]
-vehicle-search = "vehicle_search.cli:main"
+vehicle-search = "vehicle_search.cli:app"
 
 [dependency-groups]
 dev = [
   "pytest",
   "pytest-cov",
-  "ruff",
-  "poethepoet",
-]
-
-[tool.hatch.envs.default]
-dependencies = [
-  "pytest",
-  "pytest-cov",
-  "coverage[toml]",
   "ruff",
   "poethepoet",
 ]

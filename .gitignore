@@ -2,6 +2,7 @@ __pycache__/
 
 # Packaging
 dist
+*tar.gz
 
 # Virtual environments
 .venv

@@ -7,3 +7,12 @@ Install uv using the instructions for  your environment provided by https://docs
 Lint
 
 To leverage the linting rules within VS code, install the vs code RUFF extension published by Astral software.
+
+
+Installation Steps
+
+tar -xzf my-offline-bundle.tar.gz
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --no-index --find-links ./wheelhouse vehicle-search
+
