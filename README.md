@@ -4,3 +4,6 @@ These steps leverage the use of uv to manage the python environment, project dep
 
 Install uv using the instructions for  your environment provided by https://docs.astral.sh/uv/getting-started/installation/
 
+Lint
+
+To leverage the linting rules within VS code, install the vs code RUFF extension published by Astral software.

@@ -11,16 +11,19 @@ requires-python = ">=3.13"
 authors = [
   { name = "Your Team" }
 ]
-dependencies = []
+dependencies = [
+    "typer>=0.26.7",
+]
 
 [project.scripts]
 vehicle-search = "vehicle_search.cli:main"
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
   "pytest",
   "pytest-cov",
   "ruff",
+  "poethepoet",
 ]
 
 [tool.hatch.envs.default]
@@ -29,22 +32,18 @@ dependencies = [
   "pytest-cov",
   "coverage[toml]",
   "ruff",
+  "poethepoet",
 ]
-
-[tool.hatch.envs.default.scripts]
-lint = "ruff check ."
-format = "ruff format ."
-check = [
-  "ruff check .",
-  "pytest",
-]
-
-[tool.hatch.envs.test.scripts]
-test = "pytest"
-cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=src --cov=tests"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/vehicle_search"]
+
+[tool.poe.tasks]
+test = "pytest"
+cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=src --cov=tests"
+lint = "ruff check ."
+format = "ruff format ."
+check = ["lint", "test"]
 
 [tool.ruff]
 line-length = 88
