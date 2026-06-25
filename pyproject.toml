@@ -1,0 +1,75 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "vehicle-search"
+version = "0.1.0"
+description = "A command-line tool for ..."
+readme = "README.md"
+requires-python = ">=3.13"
+authors = [
+  { name = "Your Team" }
+]
+dependencies = []
+
+[project.scripts]
+vehicle-search = "vehicle_search.cli:main"
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "pytest-cov",
+  "ruff",
+]
+
+[tool.hatch.envs.default]
+dependencies = [
+  "pytest",
+  "pytest-cov",
+  "coverage[toml]",
+  "ruff",
+]
+
+[tool.hatch.envs.default.scripts]
+lint = "ruff check ."
+format = "ruff format ."
+check = [
+  "ruff check .",
+  "pytest",
+]
+
+[tool.hatch.envs.test.scripts]
+test = "pytest"
+cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=src --cov=tests"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/vehicle_search"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+select = [
+  "E",   # pycodestyle / PEP 8 style issues
+  "F",   # Pyflakes
+  "I",   # import sorting
+  "B",   # bugbear
+  "UP",  # modern Python upgrades
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["src/vehicle_search"]
+branch = true
+omit = ["tests/*"]
+
+[tool.coverage.report]
+fail_under = 60
+show_missing = true
+
+[tool.coverage.html]
+directory = "htmlcov"

@@ -1,0 +1,11 @@
+__pycache__/
+
+# Packaging
+dist
+
+# Virtual environments
+.venv
+
+# Unit test and reports
+.coverage
+dist
