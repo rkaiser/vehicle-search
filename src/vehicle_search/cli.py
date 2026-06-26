@@ -1,23 +1,27 @@
-import typer
+import click
 
-from vehicle_search.rest.find import findVehicle
+from vehicle_search.rest.find import find_vehicle
 
-app = typer.Typer()
+
+@click.group()
+def app():
+    """Command line tool..."""
+
+@app.command()
+@click.argument("make")
+def make(make: str) -> None:
+    """Find car by make"""
+    click.echo(f"Finding make: {make}")
+    find_vehicle(make)
 
 
 @app.command()
-def goodby(name: str):
-    print(f"Goodbye {name}")
-
-@app.command()
-def hello(name: str):
-    print(f"Hello {name}")
-
-@app.command()
-def find(name: str):
-    print(f"finding {name}")
-    findVehicle(name)
-
+@click.option("--year", default=2015, help="Model year")
+@click.option("--make", default="honda")
+def find(make: str, year: int) -> None:
+    """Find car by make and year"""
+    click.echo(f"Finding make: {make}")
+    find_vehicle(make, year)
 
 if __name__ == "__main__":
     app()
