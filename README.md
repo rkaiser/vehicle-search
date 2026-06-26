@@ -39,7 +39,7 @@ sudo ./install-system.sh
 Additionally, the project includes an `uninstall-system.sh` script which can be used to remove the project from the system. This will also need to be executed as root.
 
 ```bash
-sudo ./uinstall-system.sh
+sudo ./uninstall-system.sh
 ```
 
 ### Running the Application
