@@ -1,9 +1,10 @@
 import pandas as pd
 
 
-def read_vehicle_sales(make: str, model: str, sale_year: int):
+def read_vehicle_sales(make: str, model: str, sale_year: int,
+                       file_path: str = "data/car_prices.csv"):
 
-    vehicle_sales = pd.read_csv("data/car_prices.csv")
+    vehicle_sales = pd.read_csv(file_path)
 
     vehicle_sales["saledate_clean"] = (
         vehicle_sales["saledate"]

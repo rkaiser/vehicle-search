@@ -5,19 +5,40 @@ These steps leverage the use of `uv` to manage the python environment, project d
 
 In order to install follow the instructions for  your environment provided by https://docs.astral.sh/uv/getting-started/installation/
 
+Once installed, `uv` can be used to manage and install multiple versions of python as well as to manage and install project dependencies.
+
 ### Lint
 
-To leverage the linting rules within VS code, install the vs code RUFF extension published by Astral software.
+The de-facto standard for enforcing python coding and formatting standards is the linting tool called ruff. Ruff can be added to the project as a development dependency using the following `uv` command:
+
+```bash
+uv add --dev ruff
+```
+
+To leverage the Ruff linting rules within VS code, install the vs code Ruff extension published by Astral software.
+
+### Development Scripts
+To support many of the common develpment tasks, this project leverages the capabilities of `uv` along with `poethepoet` and has been configured via `pyproject.toml`. Within the `pyproject.toml` file there are a number of scripts that can be used to help the develpment process. These scripts can be used to execute project, run tests, determine test coverage statistices, and lint the project according to industry standard rules. Some of the key scripts can be executed as follows:
+
+```bash
+# run the application
+uv run vehicle-search find --make honda --year 2017
+# run the unit tests using pytest
+uv run poe test
+# run the coverage statistics using pytest-cov
+uv run poe cov
+# run the linter using 
+uv run poe lint
+```
 
 ### Build Steps
-The build relies on the tool `uv` and is expected to be executed using a linux distribution. If running on windows, the recommendation is to use WSL2 with one of the commong linux distributions.
+The build process also leverages `uv` and is expected to be executed using a linux distribution. If running on windows, the recommendation is to use WSL2 with one of the commong linux distributions.
 
 Edit the `./build-project.sh` to ensure that the proper python version is defined for the target system.
 
 Once the edited properly, execute the command `./build-project.sh`. 
 
 This will execute the necessary build commands and produce a `.tar.gz` which will be used to install on the target machine.
-
 
 ### Installation Steps
 The assumption is that the target system will already have python installed at the version that is defined in `build-project.sh` script. If the target machine does not include python, adjustments will need to be made to the build and installation steps.
@@ -29,10 +50,12 @@ tar -xvf project-offline-bundle.tar.gz
 The files in the extracted bundle include `install-project.sh` and `install-system.sh`. These files can be used to install the packaged. To install the file local to the shell that the user is using, the `install-project.sh` can be used. This will make it such that the package is only accessible to the user performing installation. To make the package globally available, the `install-system.sh` script can be used. This will need to be executed as root as it is installed in the `/opt` folder.
 
 ```bash
+# Install locally for the logged in user
 ./install-project.sh
 ```
 or 
 ```bash
+# Install globally to the system
 sudo ./install-system.sh
 ```
 
@@ -46,22 +69,9 @@ sudo ./uninstall-system.sh
 Once the application is installed it can be executed by executing the application entry point, which is defined as `PACKAGE_NAME` in the the `install-project.sh` or `COMMAND_NAME` in the `install-system.sh`.
 
 ```bash
-vehicle-search find --make honda --year 2017
+# Command to find models for specific make and year
+vehicle-search find --make=honda --year=2015
+
+# command find find sales for the specific make, model, and year
+vehicle-search find-sales --make=honda --model=accord --year=2015
 ```
-
-### Development Scripts
-This project leverages the capabilities of `uv` and has been configured via `pyproject.toml`. Within the `pyproject.toml` file there are a number of scripts that can be used to help the develpment process. These scripts can be used to execute project, run tests, determine test coverage statistices, and lint the project according to industry standard rules. Some of the key scripts can be executed as follows:
-```bash
-# run the application
-uv run vehicle-search find --make honda --year 2017
-# run the unit tests using pytest
-uv run poe test
-# run the coverage statistics using pytest-cov
-uv run poe cov
-# run the linter using 
-uv run poe lint
-```
-
-
-
-
