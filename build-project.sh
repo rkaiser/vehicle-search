@@ -34,6 +34,6 @@ uv run --with pip python -m pip download \
   --no-binary=:none: \
   -d wheelhouse
 
-tar -czf "${PACKAGE_NAME}-offline-bundle.tar.gz" wheelhouse install-project.sh install-system.sh uninstall-system.sh data
+tar -czf "${PACKAGE_NAME}-offline-bundle.tar.gz" wheelhouse install-project.sh install-system.sh uninstall-system.sh data config.toml
 
 echo "Created ${PACKAGE_NAME}-offline-bundle.tar.gz"

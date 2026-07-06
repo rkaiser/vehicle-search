@@ -50,7 +50,8 @@ To support many of the common develpment tasks, this project leverages the capab
 
 ```bash
 # run the application
-uv run vehicle-search find --make honda --year 2017
+uv run vehicle-search find --make=honda --year=2015 --config=./config.toml
+uv run vehicle-search find-sales --make=honda --model=accord --year=2015 --config=./config.toml
 # run the unit tests using pytest
 uv run poe test
 # run the coverage statistics using pytest-cov
@@ -98,8 +99,8 @@ Once the application is installed it can be executed by executing the applicatio
 
 ```bash
 # Command to find models for specific make and year
-vehicle-search find --make=honda --year=2015
+vehicle-search find --make=honda --year=2015 --config=./config.toml
 
 # command find find sales for the specific make, model, and year
-vehicle-search find-sales --make=honda --model=accord --year=2015
+vehicle-search find-sales --make=honda --model=accord --year=2015 --config=./config.toml
 ```
