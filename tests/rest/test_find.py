@@ -26,8 +26,7 @@ def test_find_vehicle_calls_requests(monkeypatch):
 
     monkeypatch.setattr("vehicle_search.rest.find.requests.get", fake_get)
 
-    find_vehicle("honda", 2020)
-
+    find_vehicle("honda", 2020,  "https://carapi.app/api/models/v2")
     assert calls == [
         {
             "url": "https://carapi.app/api/models/v2?make=honda&year=2020&page=1",

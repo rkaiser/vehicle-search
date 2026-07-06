@@ -1,8 +1,10 @@
+from pathlib import Path
+
 import pandas as pd
 
 
 def read_vehicle_sales(make: str, model: str, sale_year: int,
-                       file_path: str = "data/car_prices.csv"):
+                       file_path: str | Path):
 
     vehicle_sales = pd.read_csv(file_path)
 

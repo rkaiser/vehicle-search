@@ -1,0 +1,10 @@
+{
+  "python.languageServer": "Pylance",
+  "python.analysis.typeCheckingMode": "off",
+
+  "ty.disableLanguageServices": true,
+  "ty.diagnosticMode": "workspace",
+  "ty.showSyntaxErrors": false,
+
+  "ruff.enable": true
+}

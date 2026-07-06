@@ -9,6 +9,7 @@ Once installed, `uv` can be used to manage and install multiple versions of pyth
 
 ### Lint
 
+#### Ruff
 The de-facto standard for enforcing python coding and formatting standards is the linting tool called ruff. Ruff can be added to the project as a development dependency using the following `uv` command:
 
 ```bash
@@ -16,6 +17,33 @@ uv add --dev ruff
 ```
 
 To leverage the Ruff linting rules within VS code, install the vs code Ruff extension published by Astral software.
+
+#### Type Hints
+Since Python is not a statically typed languaged, a developer can encounter type problems if proper care is not taken. To encourage consideration of proper data types, python has included the ability to provide `type hints` when defining variables, arguments, etc. Since the language uses dynamic typing, the type hints will not prohibit incorrect types from being used; however, by using type hints the developer can employ tools to check that the used types match the expected types. The developers of `uv` have a created a tool called `ty` which can be used to check that types are being defined and are being used as expected. The tool `ty` can be added using the following:
+
+```bash
+uv add --dev ty
+```
+
+Once added the tool can be used to check that appropriate typing is used by using the following command:
+```bash
+uv run ty check
+```
+
+To integrate `ty` type checking within VS code, install the ty extension published by Astral software.
+To ensure that `ty` works properly with pylance, you may need to update the `.vscode/settings.json` like the following:
+```json
+{
+  "python.languageServer": "Pylance",
+  "python.analysis.typeCheckingMode": "off",
+
+  "ty.disableLanguageServices": true,
+  "ty.diagnosticMode": "workspace",
+  "ty.showSyntaxErrors": false,
+
+  "ruff.enable": true
+}
+```
 
 ### Development Scripts
 To support many of the common develpment tasks, this project leverages the capabilities of `uv` along with `poethepoet` and has been configured via `pyproject.toml`. Within the `pyproject.toml` file there are a number of scripts that can be used to help the develpment process. These scripts can be used to execute project, run tests, determine test coverage statistices, and lint the project according to industry standard rules. Some of the key scripts can be executed as follows:
@@ -32,7 +60,7 @@ uv run poe lint
 ```
 
 ### Build Steps
-The build process also leverages `uv` and is expected to be executed using a linux distribution. If running on windows, the recommendation is to use WSL2 with one of the commong linux distributions.
+The build process also leverages `uv` and is expected to be executed using a linux distribution. If running on windows, the recommendation is to use WSL2 with one of the common linux distributions.
 
 Edit the `./build-project.sh` to ensure that the proper python version is defined for the target system.
 

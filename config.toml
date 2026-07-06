@@ -1,0 +1,3 @@
+[vehicle_search]
+data_path = "./data/car_prices.csv"
+vehicle_api_url = "https://carapi.app/api/models/v2"

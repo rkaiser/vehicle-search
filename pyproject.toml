@@ -27,6 +27,7 @@ dev = [
   "pytest-cov",
   "ruff",
   "poethepoet",
+  "ty>=0.0.56",
 ]
 
 [tool.hatch.build.targets.wheel]
@@ -34,7 +35,7 @@ packages = ["src/vehicle_search"]
 
 [tool.poe.tasks]
 test = "pytest"
-cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=src --cov=tests"
+cov = "pytest --cov-config=pyproject.toml --cov=src --cov-report=html:reports/html --cov-report=term-missing"
 lint = "ruff check ."
 format = "ruff format ."
 check = ["lint", "test"]
@@ -52,6 +53,9 @@ select = [
   "UP",  # modern Python upgrades
 ]
 
+[tool.ty.environment]
+python-version = "3.13"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
@@ -63,6 +67,3 @@ omit = ["tests/*"]
 [tool.coverage.report]
 fail_under = 80
 show_missing = true
-
-[tool.coverage.html]
-directory = "htmlcov"
