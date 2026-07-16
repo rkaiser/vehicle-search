@@ -1,0 +1,17 @@
+Source: vehicle-search
+Section: utils
+Priority: optional
+Maintainer: Your Team <team@example.com>
+Build-Depends:
+ debhelper-compat (= 13)
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+
+Package: vehicle-search
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ python3 (>= 3.13)
+Description: Search and analyze vehicle sales data
+ Command-line application for searching and analyzing vehicle sales data.

@@ -1,0 +1,32 @@
+#!/usr/bin/make -f
+
+PACKAGE := vehicle-search
+PACKAGE_ROOT := $(CURDIR)/debian/$(PACKAGE)
+INSTALL_ROOT := $(PACKAGE_ROOT)/opt/$(PACKAGE)
+VENV := $(INSTALL_ROOT)/venv
+
+%:
+	dh $@
+
+override_dh_auto_install:
+	install -d $(INSTALL_ROOT)
+	install -d $(PACKAGE_ROOT)/usr/bin
+
+	uv venv \
+		--relocatable \
+		--no-managed-python \
+		--python /usr/bin/python3.13 \
+		$(VENV)
+
+	uv pip install \
+		--python $(VENV)/bin/python \
+		--no-index \
+		--find-links $(CURDIR)/wheelhouse \
+		vehicle-search
+
+	printf '%s\n' \
+		'#!/usr/bin/env sh' \
+		'exec /opt/vehicle-search/venv/bin/vehicle-search "$$@"' \
+		> $(PACKAGE_ROOT)/usr/bin/vehicle-search
+
+	chmod 0755 $(PACKAGE_ROOT)/usr/bin/vehicle-search

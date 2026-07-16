@@ -3,6 +3,7 @@ __pycache__/
 # Packaging
 dist
 *tar.gz
+debian/.debhelper
 
 # Virtual environments
 .venv
