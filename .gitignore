@@ -4,6 +4,8 @@ __pycache__/
 dist
 *tar.gz
 debian/.debhelper
+debian/DEBIAN/*
+debian/vehicle-search
 
 # Virtual environments
 .venv

@@ -2,7 +2,9 @@ import os
 import tomllib
 from dataclasses import dataclass
 from functools import lru_cache
+from importlib.resources import files
 from pathlib import Path
+from typing import Any
 
 
 class ConfigError(Exception):
@@ -13,18 +15,11 @@ class AppConfig:
     data_path: Path | str
     vehicle_api_url: str | None = None
 
-def load_config(config_path: str | None = None) -> AppConfig:
+def load_config(config_path: Path | None = None) -> AppConfig:
     values = {}
 
-    if config_path:
-        path = Path(config_path)
-
-        if path.exists():
-            print(f"Path exists {path}")
-            with path.open("rb") as f: # Reads as bytes.
-                config_file = tomllib.load(f)
-
-            values.update(config_file.get("vehicle_search", {}))
+    config_file = read_toml(config_path)
+    values.update(config_file.get("vehicle_search", {}))
 
     if data_path := os.getenv("VEHICLE_SEARCH_DATA_PATH"):
         values["data_path"] = data_path
@@ -42,9 +37,18 @@ def load_config(config_path: str | None = None) -> AppConfig:
         )
     return AppConfig(**values)
 
+def read_toml(path: Path | None = None) -> dict[str, Any]:
+    if path is not None:
+        with path.open("rb") as config_file:
+            return tomllib.load(config_file)
+    
+    default_config = files("vehicle_search").joinpath("defaults", "config.toml",)
 
+    with default_config.open("rb") as config_file:
+        return tomllib.load(config_file)
+    
 @lru_cache(maxsize=1)
-def get_config(config_path: str | None = None) -> AppConfig:
+def get_config(config_path: Path | None = None) -> AppConfig:
     return load_config(config_path)
 
 
