@@ -42,6 +42,23 @@ def find_sales(config: AppConfig, make: str, model: str, year: int) -> None:
     #Are you sure?
     click.confirm("Are you sure you want to proceed?", abort=True)
     read_vehicle_sales(make, model, year, config.data_path)
-    
+
+@app.command("sales")
+@click.argument("make")
+@click.argument("model")
+@click.argument("year", type=int)
+@click.pass_obj
+def sales(
+    config: AppConfig,
+    make: str,
+    model: str,
+    year: int,
+) -> None:
+    """Find car sales"""
+    click.echo(f"Finding sales for make: {make}, model: {model}, year: {year}")
+    #Are you sure?
+    click.confirm("Are you sure you want to proceed?", abort=True)
+    read_vehicle_sales(make, model, year, config.data_path)
+
 if __name__ == "__main__":
     app()
