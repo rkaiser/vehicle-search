@@ -44,9 +44,9 @@ def find_sales(config: AppConfig, make: str, model: str, year: int) -> None:
     read_vehicle_sales(make, model, year, config.data_path)
 
 @app.command("sales")
-@click.argument("make")
-@click.argument("model")
-@click.argument("year", type=int)
+@click.argument("make", help="Make of vehicle (i.e. Honda)")
+@click.argument("model", help="Model of vehicle (i.e. Accord)")
+@click.argument("year", type=int, help="Year of the sale")
 @click.pass_obj
 def sales(
     config: AppConfig,
