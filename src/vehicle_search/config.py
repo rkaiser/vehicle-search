@@ -15,6 +15,11 @@ class AppConfig:
     data_path: Path | str
     vehicle_api_url: str | None = None
 
+@dataclass
+class AppContext:
+    config: AppConfig
+    force: bool
+
 def load_config(config_path: Path | None = None) -> AppConfig:
     values = {}
 
@@ -26,8 +31,6 @@ def load_config(config_path: Path | None = None) -> AppConfig:
 
     if vehicle_api_url := os.getenv("VEHICLE_API_URL"):
         values["vehicle_api_url"] = vehicle_api_url
-
-    print(f"values are {values}")
 
     if not values.get("data_path"):
         raise ConfigError(
